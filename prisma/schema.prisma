@@ -1,0 +1,26 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// generator clientはprisma generateコマンドの対象を指定する
+// マイグレーションスキーマファイルの内容を更新してマイグレートした際に実行される
+// ここでは prisma-client-js を指定している
+generator client {
+  provider = "prisma-client-js"
+}
+
+// datasource dbは使用するデータベースの情報を設定する
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// model usersにはデータモデルを設定する
+// prisma clientがAPIアクセスする際は、小文字になる
+// 型の指定はパスカルケース、@defaultではオプションにデフォルト値を使用可能
+model users {
+  id Int @id @default(autoincrement())
+  name String
+  age Int
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+}
